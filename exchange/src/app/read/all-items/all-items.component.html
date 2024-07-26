@@ -1,1 +1,7 @@
-<p>all-items works!</p>
+<h1>All Items</h1>
+
+<li *ngFor="let item of allItems; index as i" [routerLink]="{{item.id}}">
+    <h1>{{item.name}}</h1>
+    <h1>{{item.desc}}</h1>
+    <h1>{{item.img_src}}</h1>
+</li>
