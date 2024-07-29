@@ -71,3 +71,4 @@ node_modules/
 #other things
 node_modules
 
+firebaseconfig.ts

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReadItemService } from '../read-item.service';
 import { ActivatedRoute } from '@angular/router';
+import { Comment } from '../../comment';
 
 @Component({
   selector: 'app-one-item',
@@ -19,13 +20,13 @@ export class OneItemComponent {
     private route: ActivatedRoute
   ) { }
 
-  private id: string = "placeholder" // look for how to get id
+  id = this.route.snapshot.paramMap.get('id')
 
   ngOnInit() {
-    //debugging
+
     console.log(this.id)
 
-    this.service.getItem(this.id)
+    this.service.getItem(this.id!)
       .then((item) => {
         this.item = item
         this.service.getImg(this.item.img_src)
@@ -38,10 +39,12 @@ export class OneItemComponent {
   }
 
   getComments() {
-    this.service.getComment(this.id)
+    this.service.getComment(this.id!)
       .then((comment) => {
         comment.forEach((com) => {
-          this.comment = com
+          const data:any = com.data()
+          data.item_id = com.id
+          comment = data
         })
       })
       .catch()

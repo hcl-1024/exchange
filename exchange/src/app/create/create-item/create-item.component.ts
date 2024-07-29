@@ -2,11 +2,14 @@ import { Component } from '@angular/core'
 import { noIDItem, Item } from '../../item'
 import crypto from "crypto";
 import { CreateItemService } from '../create-item.service';
+import { ItemFormComponent } from '../item-form/item-form.component';
 
 @Component({
   selector: 'app-create-item',
   standalone: true,
-  imports: [],
+  imports: [
+    ItemFormComponent
+  ],
   templateUrl: './create-item.component.html',
   styleUrl: './create-item.component.css'
 })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { db, storage } from '../../../../firebaseconfig'
+import { db, storage } from '../../../firebaseconfig'
 import { collection, doc, setDoc } from "firebase/firestore"; 
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { Item } from '../item';

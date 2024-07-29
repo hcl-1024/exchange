@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CreateItemService } from '../create-item.service';
 
 @Component({
   selector: 'app-item-form',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './item-form.component.html',
   styleUrl: './item-form.component.css'
 })

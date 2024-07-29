@@ -1,4 +1,4 @@
-<h1 (click)="useGoogle()">Continue with Google</h1>
-<h1 (click)="useFacebook()">Continue with Facebook</h1>
+<!-- <h1 (click)="useGoogle()">Continue with Google</h1>
+<h1 (click)="useFacebook()">Continue with Facebook</h1> -->
 
-<app-auth-form (formSubmitted)="signin($event)"></app-auth-form>
+<app-auth-form (submittedForm)="signin($any($event))"></app-auth-form>

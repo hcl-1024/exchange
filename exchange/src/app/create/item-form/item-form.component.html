@@ -1,10 +1,10 @@
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-    <label for="title">First Name: </label>
+    <label for="title">Title </label>
     <input id="title" type="text" formControlName="title">
-    <label for="desc">Last Name: </label>
+    <label for="desc">Description </label>
     <input id="desc" type="text" formControlName="desc">
-    <label for="content">Last Name: </label>
+    <label for="content">Content </label>
     <input id="content" type="text" formControlName="content">
     <input id="image" type="file" (change)="onImagePicked($event)">
-    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    <button type="submit" [disabled]="!itemForm.valid">Submit</button>
 </form>

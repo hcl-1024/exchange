@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, Input, Output } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
+import { User } from '../../user';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './auth-form.component.html',
   styleUrl: './auth-form.component.css'
 })
 export class AuthFormComponent {
 
-  eventEmitter = new EventEmitter()
+  constructor(
+    private fb: FormBuilder
+  ) {}
+
+  @Output()
+  submittedForm = new EventEmitter()
 
   profileForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
 
-  onSubmit() {
-    this.eventEmitter.emit(this.profileForm.value)
+  formSubmitted() {
+    this.submittedForm.emit(this.profileForm.value)
   }
 
 }
