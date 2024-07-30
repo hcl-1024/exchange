@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { auth } from '../../../firebaseconfig';
+import { auth, storage } from '../../../firebaseconfig';
 import { User } from '../user';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
@@ -21,18 +21,18 @@ export class AuthService {
   }
 
   getUser() {
+    let uid;
     onAuthStateChanged(auth, (user:any) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        return user.uid;
+        uid = user.uid;
       } else {
-        return "no user"
+        uid = "no user"
       }
     })
+    return uid;
   }
-
-    // try phone number https://firebase.google.com/docs/auth/web/phone-auth?hl=en&authuser=1
 
   logout() {
     signOut(auth)

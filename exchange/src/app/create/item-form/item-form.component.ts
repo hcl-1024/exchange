@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CreateItemService } from '../create-item.service';
@@ -16,7 +16,8 @@ export class ItemFormComponent {
 
   constructor(private service: CreateItemService) { }
 
-  eventEmitter = new EventEmitter()
+  @Output()
+  submittedForm = new EventEmitter()
 
   itemForm = new FormGroup({
     title: new FormControl(''),
@@ -35,7 +36,7 @@ export class ItemFormComponent {
   }
 
   onSubmit() {
-    this.eventEmitter.emit(this.itemForm.value)
+    this.submittedForm.emit(this.itemForm.value)
   }
 
 }

@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { ReadItemService } from '../read-item.service';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from '../../comment';
+import { HeaderComponent } from '../../auth/header/header.component';
 
 @Component({
   selector: 'app-one-item',
   standalone: true,
-  imports: [],
+  imports: [
+    HeaderComponent
+  ],
   templateUrl: './one-item.component.html',
   styleUrl: './one-item.component.css'
 })

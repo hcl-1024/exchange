@@ -15,9 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthFormComponent {
 
-  constructor(
-    private fb: FormBuilder
-  ) {}
+  constructor() {}
 
   @Output()
   submittedForm = new EventEmitter()

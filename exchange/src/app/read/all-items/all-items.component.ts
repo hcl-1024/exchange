@@ -3,13 +3,15 @@ import { ReadItemService } from '../read-item.service';
 import { Item } from '../../item';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { HeaderComponent } from '../../auth/header/header.component';
 
 @Component({
   selector: 'app-all-items',
   standalone: true,
   imports: [
     CommonModule, 
-    RouterModule
+    RouterModule, 
+    HeaderComponent
   ],
   templateUrl: './all-items.component.html',
   styleUrl: './all-items.component.css'
