@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { db, storage } from '../../../firebaseconfig'
-import { collection, doc, setDoc } from "firebase/firestore"; 
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { db, storage, auth } from '../../../firebaseconfig'
+import { collection, doc, setDoc, updateDoc, getDoc } from "firebase/firestore"; 
+import { ref, uploadBytesResumable, deleteObject } from "firebase/storage";
 import { Item } from '../item';
 
 @Injectable({
@@ -13,10 +13,34 @@ export class CreateItemService {
   async addItem(item: Item) {
     await setDoc(doc(db, "items", item.id), {
       title: item.title, 
+      posterUID: item.posterUID, 
       content: item.content, 
       desc: item.desc, 
       image_src: item.image_src, 
+      posted: item.posted
     });
+  }
+
+  async updateItem(id: string, item: Item) {
+    const docRef = doc(db, "items", id);
+    await updateDoc(docRef, {
+      title: item.title, 
+      posterUID: item.posterUID, 
+      content: item.content, 
+      desc: item.desc, 
+      image_src: item.image_src, 
+      posted: item.posted
+    })
+  }
+
+  async getItem(id: string) {
+    const docRef = doc(db, "items", id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data()
+  }
+
+  getUser() {
+    return auth.currentUser
   }
 
   async addImage(file: File) {
@@ -39,6 +63,11 @@ export class CreateItemService {
       counter += 1;
     }
     return result;
-}
+  }
+
+  deleteImage(path: string) {
+    const desertRef = ref(storage, path);
+    deleteObject(desertRef)
+  }
 
 }

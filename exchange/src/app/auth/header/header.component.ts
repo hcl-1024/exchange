@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { FireUser } from '../../fire-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,18 +14,29 @@ export class HeaderComponent {
   public name: any;
 
   constructor(
-    private service: AuthService
+    private service: AuthService, 
+    private router: Router
   ) { }
 
   ngOnInit() {
-    const uid = this.service.getUser()
-    if(uid == "no user") {
+    const user: any = this.service.getUser()
+    if(user) {
+      this.name = user.displayName
+    } else {
       this.name = "Guest"
     }
-    this.name = "placeholder"
+  }
+
+  login() {
+    this.router.navigate(['auth/signin'])
   }
 
   logout() {
     this.service.logout()
+    this.router.navigateByUrl('/', {
+      skipLocationChange: true
+    }).then(() => {
+      this.router.navigate(['all-items'])
+    })
   }
 }

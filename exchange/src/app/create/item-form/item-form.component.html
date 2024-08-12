@@ -1,10 +1,22 @@
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
     <label for="title">Title </label>
     <input id="title" type="text" formControlName="title">
+
+    <div *ngIf="form.title.invalid && (form.title.dirty || form.title.touched)">
+        <div *ngIf="form.title.hasError('required')">
+            Title is required.
+        </div>
+    </div>
+
     <label for="desc">Description </label>
     <input id="desc" type="text" formControlName="desc">
+
     <label for="content">Content </label>
     <input id="content" type="text" formControlName="content">
+
     <input id="image" type="file" (change)="onImagePicked($event)">
-    <button type="submit" [disabled]="!itemForm.valid">Submit</button>
+
+    <button type="submit" [disabled]="!itemForm.valid">Post</button>
+
+    <button (click)="save()" [disabled]="!itemForm.valid">Save without posting</button>
 </form>

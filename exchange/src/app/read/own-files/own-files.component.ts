@@ -1,23 +1,21 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReadItemService } from '../read-item.service';
 import { Item } from '../../item';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../auth/header/header.component';
 
 @Component({
-  selector: 'app-all-items',
+  selector: 'app-own-files',
   standalone: true,
   imports: [
     CommonModule, 
-    RouterModule, 
     HeaderComponent
   ],
-  templateUrl: './all-items.component.html',
-  styleUrl: './all-items.component.css'
+  templateUrl: './own-files.component.html',
+  styleUrl: './own-files.component.css'
 })
-export class AllItemsComponent {
-
+export class OwnFilesComponent {
   public allItems: Array<Item> = [];
   public uid!: string;
 
@@ -31,10 +29,10 @@ export class AllItemsComponent {
     if(user) {
       this.uid = user.uid
     } else {
-      this.uid = "none"
+      this.router.navigate(['../../signin'])
     }
 
-    this.service.getAllItems()
+    this.service.getOwnFiles(this.uid)
       .then((items) => {
         items.forEach((doc:any) => {
           const data = doc.data()
@@ -55,15 +53,7 @@ export class AllItemsComponent {
       
   }
 
-  like(id: string) {
-    if(!this.uid) {
-      this.router.navigate(["../signin"])
-    }
-    this.service.like(id, this.uid)
-  }
-
   navigate(i: number) {
     this.router.navigateByUrl(`item/${this.allItems[i].id}`);
   }
-
 }

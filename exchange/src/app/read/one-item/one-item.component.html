@@ -1,7 +1,16 @@
 <app-header></app-header>
+
 <h1>{{item.title}}</h1>
 <h1>{{item.desc}}</h1>
-<h1>{{item.image_src}}</h1>
 <h1>{{item.content}}</h1>
+<img src="{{item.image_src}}" alt="">
+<h1 (click)="like()">Like</h1>
+<h1 (click)="deleteItem(id!)" [hidden]="uid != posterUID">Delete</h1>
 
-<h1 (click)="getComments()">Comments</h1>
+
+<h1 (click)="getComments()" [hidden]="!showComments">Show Comments</h1>
+<h1 (click)="hideComments()" [hidden]="showComments">Hide Comments</h1>
+<li *ngFor="let com of comment.messages; index as i" [hidden]="!showComments">
+    {{com}}
+    {{comment.likes[i].length}}
+</li>

@@ -1,7 +1,26 @@
 <form [formGroup]="profileForm" (ngSubmit)="formSubmitted()">
     <label for="email">Email </label>
     <input id="email" type="text" formControlName="email">
+
+          <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)"
+              class="alert">
+            <div *ngIf="form.email.hasError('required')">
+              Email is required.
+            </div>
+          </div>
+
     <label for="password">Password </label>
     <input id="password" type="password" formControlName="password">
+
+
+    <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+        <div *ngIf="form.password.hasError('required')">
+            Password is required.
+        </div>
+        <div *ngIf="form.password.hasError('minlength')">
+            Password must be at least 8 characters long.
+        </div>
+    </div>
+
     <button type="submit" [disabled]="!profileForm.valid">Submit</button>
 </form>

@@ -1,0 +1,12 @@
+<form [formGroup]="nameForm" (ngSubmit)="formSubmitted()">
+    <label for="name">Display Name </label>
+    <input id="name" type="text" formControlName="name"> 
+
+    <div *ngIf="form.name.invalid && (form.name.dirty || form.name.touched)">
+            <div *ngIf="form.name.hasError('required')">
+              Name is required.
+            </div>
+    </div>
+
+    <button type="submit" [disabled]="!nameForm.valid">Submit</button>
+</form>
