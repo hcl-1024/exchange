@@ -44,7 +44,7 @@ export class AllItemsComponent {
         this.allItems.forEach(async (doc: Item) => {
           this.service.getImg(doc.image_src)
             .then((imgRef) => {
-              doc.image_src = imgRef
+             doc.image_src = imgRef
             })
             .catch((e) => {
               console.log(e.message)
@@ -55,11 +55,11 @@ export class AllItemsComponent {
       
   }
 
-  like(id: string) {
-    if(!this.uid) {
-      this.router.navigate(["../signin"])
+  async like(id: string) {
+    if(this.uid == "none") {
+      this.router.navigate(["auth/signin"]) // have some aesthetic changes with this
     }
-    this.service.like(id, this.uid)
+    await this.service.like(id, this.uid)
   }
 
   navigate(i: number) {

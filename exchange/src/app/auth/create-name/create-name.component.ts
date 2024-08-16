@@ -25,7 +25,6 @@ export class CreateNameComponent {
 
   ngOnInit() {
     const user = auth.currentUser
-    console.log(user)
     if(!user || user.uid != this.id) {
       this.router.navigate([`auth/signin`])
     }

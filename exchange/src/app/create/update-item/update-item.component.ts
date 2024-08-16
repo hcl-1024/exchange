@@ -35,9 +35,9 @@ export class UpdateItemComponent {
     const posterUID = item.posterUID
     const user: any = this.service.getUser()
     const uid = user.posterUID
-    /*if(uid != posterUID) {
+    if(uid != posterUID) {
       this.router.navigate(["../../../signin"])
-    }*/
+    }
   }
 
   async create(item: noIDItem) {
@@ -55,9 +55,7 @@ export class UpdateItemComponent {
         posted: true
       }
       
-    console.log(uploadItem)
     await this.service.updateItem(this.id!, uploadItem)
-    console.log("done! ")
   }
 
   async save(item: noIDItem) {

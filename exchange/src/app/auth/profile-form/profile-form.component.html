@@ -1,0 +1,17 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <label for="email">Email </label>
+    <input id="email" type="text" formControlName="email">
+
+    <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)">
+        <div *ngIf="form.title.hasError('email')">
+            Must be a valid Email. 
+        </div>
+    </div>
+
+    <label for="displayName">Display Name</label>
+    <input id="displayName" type="text" formControlName="displayName">
+
+    <input id="image" type="file" (change)="onImagePicked($event)">
+
+    <button type="submit" [disabled]="!itemForm.valid">Post</button>
+</form>

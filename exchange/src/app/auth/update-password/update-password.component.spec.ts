@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OwnFilesComponent } from './own-files.component';
+import { UpdatePasswordComponent } from './update-password.component';
 
-describe('OwnFilesComponent', () => {
-  let component: OwnFilesComponent;
-  let fixture: ComponentFixture<OwnFilesComponent>;
+describe('UpdatePasswordComponent', () => {
+  let component: UpdatePasswordComponent;
+  let fixture: ComponentFixture<UpdatePasswordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OwnFilesComponent]
+      imports: [UpdatePasswordComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(OwnFilesComponent);
+    fixture = TestBed.createComponent(UpdatePasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

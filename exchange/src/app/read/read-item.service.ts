@@ -50,7 +50,7 @@ export class ReadItemService {
     const docSnap = await getDoc(docRef);
 
     const data = docSnap.data()
-    if(data!['likeUsers'].includes(uid)){
+    if(!data!.likesUsers.includes(uid)){
       await updateDoc(docRef, {
         likesUsers: arrayUnion(uid)
       })

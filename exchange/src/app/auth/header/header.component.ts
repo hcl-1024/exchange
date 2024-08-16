@@ -22,6 +22,7 @@ export class HeaderComponent {
     const user: any = this.service.getUser()
     if(user) {
       this.name = user.displayName
+      console.log(this.name)
     } else {
       this.name = "Guest"
     }
