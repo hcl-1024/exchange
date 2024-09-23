@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { auth, storage } from '../../../firebaseconfig';
+import { auth, storage, db } from '../../../firebaseconfig';
 import { User } from '../user';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signOut, RecaptchaVerifier, signInWithPhoneNumber, updateProfile, updateEmail, reauthenticateWithCredential, AuthCredential, updatePassword } from "firebase/auth";
 import { ref, uploadBytesResumable, deleteObject } from "firebase/storage";
+import { setDoc, doc, updateDoc } from 'firebase/firestore';
 import { FireUser } from '../fire-user';
 import { Password } from '../password';
 
@@ -16,6 +17,8 @@ export class AuthService {
 
   async emailSignup(user: User) {
     await createUserWithEmailAndPassword(auth, user.email, user.password)
+    const u = auth.currentUser
+    await setDoc(doc(db, "users", u!.uid), u);
   }
 
   async emailSignin(user: User) {
@@ -30,14 +33,32 @@ export class AuthService {
     await updateProfile(auth.currentUser!, {
       displayName: name
     })
+
+    const userRef = doc(db, "users", auth.currentUser!.uid);
+
+    await updateDoc(userRef, {
+      displayName: name
+    })
   }
 
   async updateUserEmail(email: string) {
     await updateEmail(auth.currentUser!, email)
+
+    const userRef = doc(db, "users", auth.currentUser!.uid);
+
+    await updateDoc(userRef, {
+      email: email
+    })
   }
 
   async updatePhoto(src: string) {
     await updateProfile(auth.currentUser!, {
+      photoURL: src
+    })
+
+    const userRef = doc(db, "users", auth.currentUser!.uid);
+
+    await updateDoc(userRef, {
       photoURL: src
     })
   }

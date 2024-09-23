@@ -20,6 +20,13 @@ export class ReadItemService {
     return await getDocs(q);
   }
 
+  async findUser(id: string) {
+    const userRef = doc(db, "users", id);
+    const docSnap = await getDoc(userRef);
+
+    return docSnap.data()
+  }
+
   async getItem(id: string) {
     const docRef = doc(db, "items", id);
     const docSnap = await getDoc(docRef);
@@ -58,6 +65,29 @@ export class ReadItemService {
         await updateDoc(docRef, {
         likesUsers: arrayRemove(uid)
     })}
+  }
+
+  async signUpUser(uid: string, docId: string) {
+    const docRef = doc(db, "items", docId);
+    const docSnap = await getDoc(docRef);
+
+    const data = docSnap.data()
+    if(!data!.signUpUsers.includes(uid)){
+      await updateDoc(docRef, {
+        signUpUsers: arrayUnion(uid)
+      })
+    } else {
+        await updateDoc(docRef, {
+          signUpUsers: arrayRemove(uid)
+    })}
+  }
+
+  async getSignedUsers(id: string) {
+    const docRef = doc(db, "items", id);
+    const docSnap = await getDoc(docRef);
+
+    const data = docSnap.data()
+    return data!.signUpUsers
   }
 
   async deleteItem(id: string) {

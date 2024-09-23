@@ -1,5 +1,5 @@
 <app-header></app-header>
-<h1>Items</h1>
+<h1>All Items</h1>
 
 <li *ngFor="let item of allItems; index as i">
     <div (click)="navigate(i)">
@@ -9,5 +9,5 @@
     <img src="{{item.image_src}}" alt="">
     </div>
     <h1 (click)="like(item.id)">Like</h1>
-    <h1 [hidden]="uid != item.posterUID">Delete</h1>
+    <h1 [hidden]="userID != item.posterUID">Delete</h1>
 </li>

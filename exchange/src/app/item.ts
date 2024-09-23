@@ -6,7 +6,8 @@ export interface Item {
     content: string, 
     image_src: string, 
     likeUsers: Array<string>,
-    posted: boolean
+    posted: boolean, 
+    signUpUsers?: Array<string>
 }
 
 export interface noIDItem {
@@ -17,7 +18,8 @@ export interface noIDItem {
     image: File,
     image_src: string, 
     likeUsers: Array<string>,
-    posted: boolean
+    posted: boolean, 
+    signUpUsers?: Array<string>
 }
 
 //maybe accomodate to add more images? 
