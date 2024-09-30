@@ -30,7 +30,7 @@ export class UpdatePasswordComponent {
   }
 
   updatePassword(password: Password) {
-    //this.service.updateDisplayName(name)
+    this.service.updatePassword(password)
     this.router.navigate(['all-items'])
   }
 

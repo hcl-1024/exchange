@@ -22,6 +22,9 @@ export class SigninComponent {
 
   public async signin(user: User) {
     await this.service.emailSignin(user)
+      .catch((e) => {
+        //something
+      })
     this.router.navigate(['all-items'])
   }
 

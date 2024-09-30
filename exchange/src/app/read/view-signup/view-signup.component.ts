@@ -26,6 +26,10 @@ export class ViewSignupComponent {
 
     this.idList.forEach(async (id) => {
       const user = await this.service.findUser(id)
+        .then(async (user) => {
+          const url = await this.service.getImg(user!.photoURL)
+          user!.photoURL = url
+        })
       this.userList.push(user)
     })
   }

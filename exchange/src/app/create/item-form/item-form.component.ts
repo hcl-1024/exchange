@@ -58,14 +58,20 @@ export class ItemFormComponent {
 
   async onImagePicked(event: Event) {
     if(this.currentRef[0] == "g") {
-      this.service.deleteImage(this.currentRef)
+      try {
+      this.service.deleteImage(this.currentRef)} catch (e) {
+        //something
+      }
     }
-    let file = (event.target as HTMLInputElement).files![0]; // Here we use only the first file (single file)
+    let file = (event.target as HTMLInputElement).files![0];
     this.itemForm.patchValue({image: file});
     let blob = file.slice(0, file.size, 'image/png'); 
-    let newFile = new File([blob], `${this.service.makeid(32)}.png`, {type: 'image/png'}); //maybe make a better id? 
+    let newFile = new File([blob], `${this.service.makeid(32)}.png`, {type: 'image/png'});
 
     const src = await this.service.addImage(newFile)
+      .catch((e) => {
+        //something
+      })
     const path = "gs://exchanges-5d935.appspot.com/" + src
     this.currentRef = path
     this.itemForm.controls['image_src'].setValue(path);

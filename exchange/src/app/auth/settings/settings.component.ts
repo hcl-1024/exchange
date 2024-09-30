@@ -4,7 +4,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ProfileFormComponent } from '../profile-form/profile-form.component';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { User } from '../../user';
+import { FormUser, User } from '../../user';
 
 @Component({
   selector: 'app-settings',
@@ -24,12 +24,22 @@ export class SettingsComponent {
     private router: Router
   ) {}
 
+  public currentForm: FormUser = {
+    email: "placeholder", 
+    displayName: "placeholder", 
+    image_src: "placeholder"
+  };
+
   async ngOnInit() {
     const user = this.service.getUser()
-    if(user){
-      const uid = user.uid
-    } else {
-      this.router.navigate(['auth/signin'])
+    if(user) {
+      if(user.email && user.displayName && user.photoURL){
+        this.currentForm.email = user.email
+        this.currentForm.displayName = user.displayName
+        this.currentForm.image_src = user.photoURL
+      } else {
+        this.router.navigate(['auth/signin'])
+      }
     }
   }
 
@@ -40,11 +50,13 @@ export class SettingsComponent {
         displayName: user.displayName, 
         photo: id
       }
+
+    try {
     await this.service.updateDisplayName(updateUser.displayName)
     await this.service.updateUserEmail(updateUser.email)
-    await this.service.updatePhoto(updateUser.photo)
-    
-    console.log("done! ")
-  }
+    await this.service.updatePhoto(updateUser.photo)} catch (e) {
+      //something
+    }
+    }
 
 }

@@ -11,6 +11,7 @@ export class CreateItemService {
   constructor() { }
 
   async addItem(item: Item) {
+    try {
     await setDoc(doc(db, "items", item.id), {
       title: item.title, 
       posterUID: item.posterUID, 
@@ -18,10 +19,13 @@ export class CreateItemService {
       desc: item.desc, 
       image_src: item.image_src, 
       posted: item.posted
-    });
+    });} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async updateItem(id: string, item: Item) {
+    try {
     const docRef = doc(db, "items", id);
     await updateDoc(docRef, {
       title: item.title, 
@@ -30,13 +34,18 @@ export class CreateItemService {
       desc: item.desc, 
       image_src: item.image_src, 
       posted: item.posted
-    })
+    })} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async getItem(id: string) {
+    try {
     const docRef = doc(db, "items", id);
     const docSnap = await getDoc(docRef);
-    return docSnap.data()
+    return docSnap.data()} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   getUser() {
@@ -44,13 +53,15 @@ export class CreateItemService {
   }
 
   async addImage(file: File) {
+    try {
     const metadata = {
       contentType: 'image/jpeg'
     };
     const storageRef = ref(storage, 'images/' + file.name);
     uploadBytesResumable(storageRef, file, metadata);
-    return "images/" + file.name
-      //copy rest of the code to the ts file https://firebase.google.com/docs/storage/web/upload-files
+    return "images/" + file.name} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   makeid(length: number) {
@@ -66,8 +77,11 @@ export class CreateItemService {
   }
 
   deleteImage(path: string) {
+    try {
     const desertRef = ref(storage, path);
-    deleteObject(desertRef)
+    deleteObject(desertRef)} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
 }

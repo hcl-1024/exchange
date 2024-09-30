@@ -16,43 +16,62 @@ export class ReadItemService {
   }
 
   async getAllItems() {
+    try {
     const q = query(collection(db, "items"), where("posted", "==", true));
-    return await getDocs(q);
+    return await getDocs(q);} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async findUser(id: string) {
+    try {
     const userRef = doc(db, "users", id);
     const docSnap = await getDoc(userRef);
 
-    return docSnap.data()
+    return docSnap.data()} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async getItem(id: string) {
+    try {
     const docRef = doc(db, "items", id);
     const docSnap = await getDoc(docRef);
 
-    return docSnap;
+    return docSnap;} catch(e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async getImg(src: string) {
+    try {
     const imgRef = ref(storage, src);
-    return await getDownloadURL(imgRef)
+    return await getDownloadURL(imgRef)} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async getComment(id: string) {
+    try {
     const q = query(collection(db, "comments"), where("item_id", "==", id));
     const querySnapshot = await getDocs(q);
 
-    return querySnapshot;
+    return querySnapshot;} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async getOwnFiles(uid: string) {
+    try {
     const q = query(collection(db, "items"), where("posterUID", "==", uid));
     const querySnapshot = await getDocs(q);
-    return querySnapshot
+    return querySnapshot} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async like(id: string, uid: string) {
+    try {
     const docRef = doc(db, "items", id);
     const docSnap = await getDoc(docRef);
 
@@ -64,10 +83,13 @@ export class ReadItemService {
     } else {
         await updateDoc(docRef, {
         likesUsers: arrayRemove(uid)
-    })}
+    })}} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async signUpUser(uid: string, docId: string) {
+    try {
     const docRef = doc(db, "items", docId);
     const docSnap = await getDoc(docRef);
 
@@ -79,19 +101,27 @@ export class ReadItemService {
     } else {
         await updateDoc(docRef, {
           signUpUsers: arrayRemove(uid)
-    })}
+    })}} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async getSignedUsers(id: string) {
+    try {
     const docRef = doc(db, "items", id);
     const docSnap = await getDoc(docRef);
 
     const data = docSnap.data()
-    return data!.signUpUsers
+    return data!.signUpUsers} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
   async deleteItem(id: string) {
-    await deleteDoc(doc(db, "items", id));
+    try {
+    await deleteDoc(doc(db, "items", id));} catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
   }
 
 }

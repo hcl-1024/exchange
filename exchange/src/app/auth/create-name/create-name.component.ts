@@ -3,6 +3,7 @@ import { NameFormComponent } from '../name-form/name-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { auth } from '../../../../firebaseconfig';
+import { Name } from '../../user';
 
 @Component({
   selector: 'app-create-name',
@@ -30,9 +31,12 @@ export class CreateNameComponent {
     }
   }
 
-  createName(displayName: any) {
+  createName(displayName: Name) {
     const name = displayName.name
     this.service.updateDisplayName(name)
+      .catch((e) => {
+        console.error(e.message)
+      })
     this.router.navigate(['all-items'])
   }
 

@@ -31,13 +31,16 @@ export class UpdateItemComponent {
   }
 
   async ngOnInit() {
-    const item: any = await this.service.getItem(this.id!)
-    const posterUID = item.posterUID
-    const user: any = this.service.getUser()
+    const item = await this.service.getItem(this.id!)
+    const user:any = this.service.getUser()
+    if(item && user){
+    const id1 = item.posterUID
     const uid = user.posterUID
-    if(uid != posterUID) {
+    if(uid != id1) {
       this.router.navigate(["../../../signin"])
     }
+    }
+
   }
 
   async create(item: noIDItem) {
@@ -75,7 +78,9 @@ export class UpdateItemComponent {
       
     console.log(uploadItem)
     await this.service.updateItem(this.id!, uploadItem)
-    console.log("done! ")
+      .catch((e) => {
+        //something
+      })
   }
 
 }

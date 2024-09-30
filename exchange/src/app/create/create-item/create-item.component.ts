@@ -4,6 +4,7 @@ import crypto from "crypto";
 import { CreateItemService } from '../create-item.service';
 import { ItemFormComponent } from '../item-form/item-form.component';
 import { HeaderComponent } from '../../auth/header/header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-item',
@@ -17,45 +18,56 @@ import { HeaderComponent } from '../../auth/header/header.component';
 })
 export class CreateItemComponent { 
 
-  constructor(private service: CreateItemService) { }
+  constructor(
+    private service: CreateItemService, 
+    private router: Router
+  ) { }
 
   async create(item: noIDItem) {
     const id: string = this.service.makeid(16)
     const poster = this.service.getUser()
 
-     const uploadItem: Item = {
+
+    if(poster){
+      const uploadItem: Item = {
         id: id, 
         title: item.title, 
         desc: item.desc, 
         content: item.content, 
         image_src: item.image_src, 
-        posterUID: poster!.uid, 
+        posterUID: poster.uid, 
         posted: true, 
         likeUsers: []
       }
+      await this.service.addItem(uploadItem)
+        .catch((e) => {
+          //something
+        })
+    } else {
+      this.router.navigate(["auth/signin"])
+    }
       
-    console.log(uploadItem)
-    await this.service.addItem(uploadItem)
-    console.log("done! ")
   }
 
   async save(item: noIDItem) {
     const id: string = this.service.makeid(16)
     const poster = this.service.getUser()
 
-     const uploadItem: Item = {
+    if(poster) {
+      const uploadItem: Item = {
         id: id, 
         title: item.title, 
         desc: item.desc, 
         content: item.content, 
         image_src: item.image_src, 
-        posterUID: poster!.uid, 
+        posterUID: poster.uid, 
         likeUsers: [], 
         posted: false
       }
       
-    console.log(uploadItem)
-    await this.service.addItem(uploadItem)
-    console.log("done! ")
+      await this.service.addItem(uploadItem)
+    } else {
+      this.router.navigate(["auth/signin"])
+    }
   }
 }

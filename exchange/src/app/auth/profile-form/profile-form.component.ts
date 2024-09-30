@@ -21,10 +21,8 @@ export class ProfileFormComponent {
     private service: AuthService
   ) {}
 
-  currentRef: any;
-
   @Input() 
-  currentForm!: Function
+  currentForm: Function = () => {}
 
   @Output()
   submittedForm = new EventEmitter()
@@ -36,36 +34,40 @@ export class ProfileFormComponent {
     image_src: new FormControl(''), 
   });
 
-  async ngOnInit() {
-    const values = await this.currentForm()
+  ngOnInit() {
+    const values = this.currentForm()
     this.profileForm.patchValue({
       email: values.email, 
       displayName: values.displayName, 
       image_src: values.image_src, 
     });
 
-    if(this.profileForm.controls['image_src']) {
-      this.currentRef = this.profileForm.controls['image_src']
-    } else {
-      this.currentRef = "none"
-    }
   }
+
+  public currentRef = 
+  typeof this.profileForm.controls['image_src'] == "string" ? this.profileForm.controls['image_src'] : "none"
 
   get form() { return this.profileForm.controls; }
 
   async onImagePicked(event: Event) {
-    if(this.currentRef[0] == "g") {
-      this.service.deleteImage(this.currentRef)
+    if(this.currentRef != "none") {
+      try {
+      this.service.deleteImage(this.currentRef)} catch (e) {
+        //something
+      }
     }
-    let file = (event.target as HTMLInputElement).files![0]; // Here we use only the first file (single file)
+    let file = (event.target as HTMLInputElement).files![0];
     this.profileForm.patchValue({image: file});
     let blob = file.slice(0, file.size, 'image/png'); 
     let newFile = new File([blob], `${this.service.makeid(32)}.png`, {type: 'image/png'}); //maybe make a better id? 
-
     const src = await this.service.addImage(newFile)
+      .catch((e) => {
+        //something
+      })
     const path = "gs://exchanges-5d935.appspot.com/" + src
     this.currentRef = path
     this.profileForm.controls['image_src'].setValue(path);
+
   }
 
   onSubmit() {

@@ -11,33 +11,37 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  public name: any;
 
   constructor(
     private service: AuthService, 
     private router: Router
   ) { }
 
-  ngOnInit() {
-    const user: any = this.service.getUser()
-    if(user) {
-      this.name = user.displayName
-      console.log(this.name)
-    } else {
-      this.name = "Guest"
-    }
-  }
+  private user = this.service.getUser()
+  public name: string = 
+    this.user?
+    this.user.displayName?
+    this.user.displayName:
+    "User": 
+    "Guest"
+
+
 
   login() {
     this.router.navigate(['auth/signin'])
   }
 
   logout() {
-    this.service.logout()
-    this.router.navigateByUrl('/', {
-      skipLocationChange: true
-    }).then(() => {
-      this.router.navigate(['all-items'])
-    })
+    try {
+      this.service.logout()
+    } catch(e: any) {
+      console.error(e.message)
+    } finally {
+      this.router.navigateByUrl('/', {
+        skipLocationChange: true
+      }).then(() => {
+        this.router.navigate(['all-items'])
+      })
+    }
   }
 }
