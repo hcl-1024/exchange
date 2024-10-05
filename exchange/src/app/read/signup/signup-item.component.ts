@@ -7,10 +7,10 @@ import { ReadItemService } from '../read-item.service';
   selector: 'app-signup',
   standalone: true,
   imports: [],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  templateUrl: './signup-item.component.html',
+  styleUrl: './signup-item.component.css'
 })
-export class SignupComponent {
+export class SignupItemComponent {
 
   constructor(
     private route: ActivatedRoute, 

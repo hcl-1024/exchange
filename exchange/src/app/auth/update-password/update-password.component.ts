@@ -23,6 +23,7 @@ export class UpdatePasswordComponent {
   ) { }
 
   ngOnInit() {
+    // user needs to match
     const user = auth.currentUser
     if(!user) {
       this.router.navigate(['auth/signin'])

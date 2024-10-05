@@ -3,7 +3,7 @@ import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ProfileFormComponent } from '../profile-form/profile-form.component';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormUser, User } from '../../user';
 
 @Component({
@@ -21,26 +21,33 @@ export class SettingsComponent {
 
   constructor(
     private service: AuthService, 
-    private router: Router
+    private router: Router, 
+    private route: ActivatedRoute, 
   ) {}
 
-  public currentForm: FormUser = {
-    email: "placeholder", 
-    displayName: "placeholder", 
-    image_src: "placeholder"
-  };
+  id = this.route.snapshot.paramMap.get('id')
 
-  async ngOnInit() {
+  public currentForm() {
     const user = this.service.getUser()
+    let item = {
+      email: 'placeholder', 
+      displayName: 'placeholder', 
+      image_src: 'placeholder'
+    }
     if(user) {
       if(user.email && user.displayName && user.photoURL){
-        this.currentForm.email = user.email
-        this.currentForm.displayName = user.displayName
-        this.currentForm.image_src = user.photoURL
+        item.email = user.email
+        item.displayName = user.displayName
+        item.image_src = user.photoURL
       } else {
         this.router.navigate(['auth/signin'])
       }
     }
+    return item
+  }
+
+  ngOnInit() {
+    
   }
 
   async update(user: User) {

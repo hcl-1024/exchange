@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { ReadItemService } from '../read-item.service';
 import { User } from '../../user';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-signup',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './view-signup.component.html',
   styleUrl: './view-signup.component.css'
 })

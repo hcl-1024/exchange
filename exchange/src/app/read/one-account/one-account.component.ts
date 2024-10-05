@@ -4,11 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../item';
 import { ReadItemService } from '../read-item.service';
 import { auth } from '../../../../firebaseconfig';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../auth/header/header.component';
 
 @Component({
   selector: 'app-one-account',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule, 
+    HeaderComponent
+  ],
   templateUrl: './one-account.component.html',
   styleUrl: './one-account.component.css'
 })
