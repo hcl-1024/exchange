@@ -24,12 +24,12 @@ export class CreateNameComponent {
 
   id = this.route.snapshot.paramMap.get('id')
 
-  ngOnInit() {
+  /*ngOnInit() {
     const user = auth.currentUser
     if(!user || user.uid != this.id) {
       this.router.navigate([`auth/signin`])
     }
-  }
+  }*/
 
   createName(displayName: Name) {
     const name = displayName.name

@@ -1,26 +1,28 @@
 <form [formGroup]="profileForm" (ngSubmit)="formSubmitted()">
-    <label for="email">Email </label>
-    <input id="email" type="text" formControlName="email">
+        <div class="mr-5">
+            <input id="email" type="text" formControlName="email" placeholder="Email" class="m-1 rounded-md">
+        </div>
 
           <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)"
               class="alert">
-            <div *ngIf="form.email.hasError('required')">
+            <div *ngIf="form.email.hasError('required')" class="text-red-600">
               Email is required.
             </div>
           </div>
 
-    <label for="password">Password </label>
-    <input id="password" type="password" formControlName="password">
+    <input id="password" type="password" formControlName="password" placeholder="Password" class="m-1 rounded-md">
 
 
     <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
-        <div *ngIf="form.password.hasError('required')">
+        <div *ngIf="form.password.hasError('required')" class="text-red-600">
             Password is required.
         </div>
-        <div *ngIf="form.password.hasError('minlength')">
+        <div *ngIf="form.password.hasError('minlength')" class="text-red-600">
             Password must be at least 8 characters long.
         </div>
     </div>
 
-    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    <div class="mx-[62px]">
+        <button type="submit" [disabled]="!profileForm.valid" class="hover:bg-slate-200 p-2 rounded-md">Submit</button>
+    </div>
 </form>

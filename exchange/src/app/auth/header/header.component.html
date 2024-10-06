@@ -1,3 +1,5 @@
-<h1>Hello, {{name}}</h1>
-<h1 [hidden]="name == 'Guest'" (click)="logout()">Logout</h1>
-<h1 [hidden]="name != 'Guest'" (click)="login()">Login</h1>
+<ul class="inline-flex float-right">
+    <li class="mx-12 my-4"><h1>Hello, {{name}}! </h1></li>
+    <li class="mx-12 my-4"><h1 [hidden]="name == 'Guest'" (click)="logout()">Logout</h1></li>
+    <li class="mx-12 my-4"><h1 [hidden]="name != 'Guest'" (click)="login()">Login</h1></li>
+</ul>

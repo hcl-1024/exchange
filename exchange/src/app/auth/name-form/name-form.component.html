@@ -1,12 +1,12 @@
 <form [formGroup]="nameForm" (ngSubmit)="formSubmitted()">
-    <label for="name">Display Name </label>
-    <input id="name" type="text" formControlName="name"> 
+    <input id="name" type="text" formControlName="name" placeholder="Display Name" class="m-1"> 
 
     <div *ngIf="form.name.invalid && (form.name.dirty || form.name.touched)">
-            <div *ngIf="form.name.hasError('required')">
+            <div *ngIf="form.name.hasError('required')" class="text-red-600">
               Name is required.
             </div>
     </div>
+    <br>
 
-    <button type="submit" [disabled]="!nameForm.valid">Submit</button>
+    <button type="submit" [disabled]="!nameForm.valid" class="m-1">Submit</button>
 </form>
