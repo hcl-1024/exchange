@@ -1,17 +1,26 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <label for="email">Email </label>
-    <input id="email" type="text" formControlName="email">
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-60 mt-4">
 
-    <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)">
-        <div *ngIf="form.email.hasError('email')">
+    <input id="email" type="text" formControlName="email" placeholder="Email" class="mt-1">
+
+    <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)" class="alert">
+        <div *ngIf="form.email.hasError('email')" class="text-red-600">
             Must be a valid Email. 
         </div>
     </div>
 
-    <label for="displayName">Display Name</label>
-    <input id="displayName" type="text" formControlName="displayName">
+    <br>
 
-    <input id="image" type="file" (change)="onImagePicked($event)">
+    <input id="displayName" type="text" formControlName="displayName" placeholder="Display Name" class="mt-1">
 
-    <button type="submit" [disabled]="!profileForm.valid">Post</button>
+
+    <br>
+
+    <div class="mt-1">
+    <label for="image" class="font-semibold">Upload Profile Image Here</label>
+    <input id="image" type="file" (change)="onImagePicked($event)" class="mt-1">
+    </div>
+
+    <div class="mx-[70px]">
+        <button type="submit" [disabled]="!profileForm.valid" class="p-2 mt-1 hover:bg-slate-200 rounded-md">Save</button>
+    </div>
 </form>

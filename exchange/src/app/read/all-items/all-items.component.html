@@ -1,14 +1,17 @@
 <app-header></app-header>
 <br>
-<h1>Items</h1>
+<h1 class="text-9xl mt-3">Items</h1>
 
-<li *ngFor="let item of allItems; index as i">
+<ul class="inline-flex">
+<li *ngFor="let item of allItems; index as i" class="cursor-pointer hover:bg-slate-300 ml-2 w-[424px] pt-3">
+    <div class="px-3">
+    <img src="{{item.image_src}}"  width="400">
     <div (click)="navigate(i)">
-        <h1>{{item.title}}</h1>
+        <h1 class="">{{item.title}}</h1>
         <h1>{{item.desc}}</h1>
-        <h1>{{item.content}}</h1>
-    <img src="{{item.image_src}}" alt="">
     </div>
-    <h1 (click)="like(item.id)">Like</h1>
+    <h1 (click)="like(item.id)" class="cursor-pointer">Like</h1>
+    </div>
     <h1 [hidden]="uid != item.posterUID">Delete</h1>
 </li>
+</ul>

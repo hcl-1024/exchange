@@ -28,13 +28,13 @@ export class SettingsComponent {
   id = this.route.snapshot.paramMap.get('id')
 
   public currentForm() {
-    const user = this.service.getUser()
+    //const user = this.service.getUser()
     let item = {
-      email: 'placeholder', 
-      displayName: 'placeholder', 
-      image_src: 'placeholder'
+      email: '', 
+      displayName: '', 
+      image_src: ''
     }
-    if(user) {
+    /*if(user) {
       if(user.email && user.displayName && user.photoURL){
         item.email = user.email
         item.displayName = user.displayName
@@ -42,7 +42,7 @@ export class SettingsComponent {
       } else {
         this.router.navigate(['auth/signin'])
       }
-    }
+    }*/
     return item
   }
 
