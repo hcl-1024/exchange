@@ -1,5 +1,12 @@
-<h1 *ngFor="let user of userList">
-    
-    {{user.displayName}}
-    {{user.photoURL}}
+<h1 *ngFor="let user of userList inline-flex">
+    <div class="cursor-pointer hover:bg-slate-300 ml-2 w-1/4 pt-3  rounded-xl"> <!--Previous width was 424px-->
+        <div class="px-3">
+        Balls
+        <!--{{user.displayName}}-->
+        </div>
+        <div>
+        Balls
+        <!--{{user.photoURL}}-->
+        </div>
+    </div>
 </h1>

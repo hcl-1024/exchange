@@ -6,6 +6,8 @@ import { ItemFormComponent } from '../item-form/item-form.component';
 import { HeaderComponent } from '../../auth/header/header.component';
 import { Router } from '@angular/router';
 
+//Add authentication for whether logged in
+
 @Component({
   selector: 'app-create-item',
   standalone: true,
@@ -37,7 +39,9 @@ export class CreateItemComponent {
         image_src: item.image_src, 
         posterUID: poster.uid, 
         posted: true, 
-        likeUsers: []
+        signup: item.signup,
+        likeUsers: [], 
+        signUpUsers: []
       }
       await this.service.addItem(uploadItem)
         .catch((e) => {
@@ -61,7 +65,9 @@ export class CreateItemComponent {
         content: item.content, 
         image_src: item.image_src, 
         posterUID: poster.uid, 
+        signup: item.signup,
         likeUsers: [], 
+        signUpUsers: [], 
         posted: false
       }
       

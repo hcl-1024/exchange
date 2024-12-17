@@ -1,2 +1,9 @@
 <app-header></app-header>
-<app-item-form (submittedForm)="create($any($event))"></app-item-form>
+<h1 class="text-4xl m-8 ml-10">Create Post</h1>
+<div class="bg-black w-10/12 h-[2px] m-10 mt-1 ml-16"></div>
+
+<div class="flex items-start mt-4 w-screen">
+    <div class="p-6 w-5/6 mx-28">
+        <app-item-form (submittedForm)="create($any($event))"></app-item-form>
+    </div>
+</div>

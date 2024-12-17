@@ -16,22 +16,27 @@ import { Password } from '../../password';
 })
 export class UpdatePasswordComponent {
 
+  public error: string = ""
+
   constructor(
     private route: ActivatedRoute, 
     private service: AuthService, 
     private router: Router
   ) { }
 
-  ngOnInit() {
+  /*ngOnInit() {
     // user needs to match
     const user = auth.currentUser
     if(!user) {
       this.router.navigate(['auth/signin'])
     }
-  }
+  }*/
 
   updatePassword(password: Password) {
     this.service.updatePassword(password)
+      .catch((e) => {
+        this.error = e.message
+      })
     this.router.navigate(['all-items'])
   }
 

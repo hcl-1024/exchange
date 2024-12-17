@@ -22,10 +22,8 @@ export class SettingsComponent {
   constructor(
     private service: AuthService, 
     private router: Router, 
-    private route: ActivatedRoute, 
   ) {}
 
-  id = this.route.snapshot.paramMap.get('id')
 
   public currentForm() {
     //const user = this.service.getUser()
@@ -47,7 +45,8 @@ export class SettingsComponent {
   }
 
   ngOnInit() {
-    
+    this.router.navigate(['profile/settings'])
+
   }
 
   async update(user: User) {

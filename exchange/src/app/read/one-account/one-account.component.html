@@ -1,6 +1,9 @@
 <app-header></app-header>
-<h1>All Items</h1>
+<h1 class="text-9xl m-9 ml-14">All Items of {{userName}}</h1>
 
+<div class="bg-black w-10/12 h-[2px] m-10 mt-1 ml-40"></div>
+
+<h1 *ngIf="empty" class="text-center text-slate-400 text-3xl mt-5">This Account Hasn't Posted Anything Yet! </h1>
 <li *ngFor="let item of allItems; index as i">
     <div (click)="navigate(i)">
         <h1>{{item.title}}</h1>

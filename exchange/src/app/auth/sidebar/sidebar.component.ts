@@ -17,13 +17,14 @@ export class SidebarComponent {
   ) {}
 
   ngOnInit() {
-    if(!this.service.getUser()) {
+    /*if(!this.service.getUser()) {
       this.router.navigate(['auth/signin'])
-    }
+    }*/
   }
 
   profile() {
     const user = this.service.getUser()
+    console.log("hi")
     if(user) {
       this.router.navigate([`profile/${user.uid}`])
     } else {

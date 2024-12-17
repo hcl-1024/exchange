@@ -1,8 +1,17 @@
 <app-header></app-header>
-<app-sidebar></app-sidebar>
+
+<div class="inline-flex">
+<app-sidebar class="mt-14"></app-sidebar>
+
+<div>
+<h1 class="text-9xl m-9 ml-12">Settings</h1>
+
+<div class="bg-black w-10/12 h-[2px] m-10 mt-1 ml-32"></div>
 
 <div class="flex items-center justify-center mt-4">
     <div class="p-6">
         <app-profile-form [currentForm]="currentForm" (submittedForm)="update($event)"></app-profile-form>
     </div>
+</div>
+</div>
 </div>

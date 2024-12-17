@@ -1,17 +1,30 @@
 <app-header></app-header>
 <br>
 <h1 class="text-9xl mt-3">Items</h1>
+<div class="bg-black w-10/12 h-[2px] m-10 mt-1 ml-16"></div>
 
 <ul class="inline-flex">
-<li *ngFor="let item of allItems; index as i" class="cursor-pointer hover:bg-slate-300 ml-2 w-[424px] pt-3">
-    <div class="px-3">
-    <img src="{{item.image_src}}"  width="400">
-    <div (click)="navigate(i)">
-        <h1 class="">{{item.title}}</h1>
-        <h1>{{item.desc}}</h1>
-    </div>
-    <h1 (click)="like(item.id)" class="cursor-pointer">Like</h1>
-    </div>
-    <h1 [hidden]="uid != item.posterUID">Delete</h1>
+<li *ngFor="let combine of combined; index as i" class="cursor-pointer hover:bg-slate-300 ml-2 w-1/4 pt-3  rounded-xl" > <!--Previous width was 424px-->
+    <li *ngFor="let item of combine; index as i">
+        <div class="px-3" *ngIf="i == 0">
+            <img src="{{item.image_src}}"  width="400">
+            <div (click)="navigate(i)">
+                <h1 class="">{{item.title}}</h1>
+                <h1>{{item.desc}}</h1>
+            </div>
+        </div>  
+
+        <div *ngIf="i == 1">
+            <h1 (click)="like(item.id)" class="cursor-pointer" *ngIf="!item">Like</h1>
+            <h1 (click)="like(item.id)" class="cursor-pointer text-red-400" *ngIf="item">Unlike</h1>
+            <h1 [hidden]="uid != item.posterUID">Delete</h1>
+        </div>
+
+        <div *ngIf="i == 2">
+            <h1 *ngIf="item" (click)="signupEvent(combine[0].id)">Sign up</h1>
+        </div>
+    </li>
+
+
 </li>
 </ul>

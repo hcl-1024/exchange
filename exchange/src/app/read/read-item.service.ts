@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { db, storage, auth } from '../../../firebaseconfig'
-import { collection, doc, getDoc, getDocs, query, where, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"; 
+import { collection, doc, getDoc, getDocs, query, where, deleteDoc, updateDoc, arrayUnion, arrayRemove, QuerySnapshot } from "firebase/firestore"; 
 import { ref, getDownloadURL } from "firebase/storage";
 
 
@@ -51,12 +51,45 @@ export class ReadItemService {
     }
   }
 
+  async giveComment(id: string, content: string, uid: string) {
+    try {
+      const q = query(collection(db, "comments"), where("doc_id", "==", id));
+      const querySnapshot: QuerySnapshot = await getDocs(q);
+      const commentid: string = querySnapshot.docs[0].id
+      const commentdoc = doc(db, "comments", commentid)
+
+      await updateDoc(commentdoc, {
+        messages: arrayUnion(content), 
+        commentors: arrayUnion(uid)
+      })
+
+    } catch (e) {
+      throw new Error("An unexpected error ocurred")
+    }
+  }
+
+  async signupStatus(id: string) {
+    try {
+      const docRef = doc(db, "items" ,id)
+      const docSnap = await getDoc(docRef)
+
+      if(docSnap.data()!.signup){
+        return docSnap.data()!.signup
+      } else {
+        throw new Error("Something strange has ocurred... ")
+      }
+    } catch (e) {
+      throw new Error("An unexpected error ocurred... ")
+    }
+  }
+
   async getComment(id: string) {
     try {
-    const q = query(collection(db, "comments"), where("item_id", "==", id));
+    const q = query(collection(db, "comments"), where("doc_id", "==", id));
     const querySnapshot = await getDocs(q);
+    return querySnapshot.docs[0]
 
-    return querySnapshot;} catch (e) {
+    } catch (e) {
       throw new Error("An unexpected error ocurred... ")
     }
   }
@@ -65,9 +98,24 @@ export class ReadItemService {
     try {
     const q = query(collection(db, "items"), where("posterUID", "==", uid));
     const querySnapshot = await getDocs(q);
-    return querySnapshot} catch (e) {
+    return querySnapshot } catch (e) {
       throw new Error("An unexpected error ocurred... ")
     }
+  }
+
+  async likeStatus(id: string, uid: string) {
+    try {
+      const docRef = doc(db, "items", id);
+      const docSnap = await getDoc(docRef);
+  
+      const data = docSnap.data()
+      if(!data!.likesUsers.includes(uid)){
+        return false
+      } else {
+        return true
+      }} catch (e) {
+        throw new Error("An unexpected error ocurred... ")
+      }
   }
 
   async like(id: string, uid: string) {

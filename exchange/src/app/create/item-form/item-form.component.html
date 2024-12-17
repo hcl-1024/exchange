@@ -1,6 +1,5 @@
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-    <label for="title">Title </label>
-    <input id="title" type="text" formControlName="title">
+    <input id="title" type="text" formControlName="title" placeholder="Title" class="h-10 w-11/12">
 
     <div *ngIf="form.title.invalid && (form.title.dirty || form.title.touched)">
         <div *ngIf="form.title.hasError('required')">
@@ -8,15 +7,22 @@
         </div>
     </div>
 
-    <label for="desc">Description </label>
-    <input id="desc" type="text" formControlName="desc">
+    <input id="desc" type="text" formControlName="desc" placeholder="Description" class="h-10 w-11/12 my-2">
 
-    <label for="content">Content </label>
-    <input id="content" type="text" formControlName="content">
+    <br>
 
-    <input id="image" type="file" (change)="onImagePicked($event)">
+    <label for="content" class="h-10 w-11/12">Upload Content </label>
+    <input id="content" type="text" formControlName="content" class="">
 
-    <button type="submit" [disabled]="!itemForm.valid">Post</button>
+    <input id="image" type="file" (change)="onImagePicked($event)" class="">
 
-    <button (click)="save()" [disabled]="!itemForm.valid">Save without posting</button>
+    <br>
+    <label for="signup">Will you need a sign-up function in this post? </label>
+    <input type="checkbox" id="signup" formControlName="signup">
+
+    <br>
+
+    <button type="submit" [disabled]="!itemForm.valid" class="bg-slate-200 hover:bg-slate-400 cursor-pointer rounded-md px-4 py-2 m-3">Post</button>
+
+    <button (click)="save()" [disabled]="!itemForm.valid" class="bg-slate-200 hover:bg-slate-400 cursor-pointer rounded-md px-4 py-2 m-3">Save without posting</button>
 </form>

@@ -10,7 +10,6 @@ import { SettingsComponent } from './auth/settings/settings.component';
 import { OneAccountComponent } from './read/one-account/one-account.component';
 import { ViewSignupComponent } from './read/view-signup/view-signup.component';
 import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
-import { SignupItemComponent } from './read/signup/signup-item.component';
 
 export const routes: Routes = [
     { path: 'auth/signin', component: SigninComponent },
@@ -21,8 +20,7 @@ export const routes: Routes = [
     { path: 'item/update/:id', component: UpdateItemComponent }, 
     { path: 'item/:id', component: OneItemComponent}, 
     { path: 'all-items', component: AllItemsComponent },
-    { path: 'item/join/:id', component: SignupItemComponent}, 
     { path: 'item/joined/:id', component: ViewSignupComponent}, 
     { path: 'profile/settings', component: SettingsComponent}, 
-    { path: 'user/:id', component: OneAccountComponent},
+    { path: 'profile/:id', component: OneAccountComponent},
 ];

@@ -1,0 +1,9 @@
+<form [formGroup]="commentForm" (ngSubmit)="formSubmitted()" class="items-center justify-center">
+    <input id="comment" type="text" formControlName="comment"  class="m-1 rounded-md" placeholder="Comment here..."> 
+  
+    <div *ngIf="form.old.invalid && (form.old.dirty || form.old.touched)">
+            <div *ngIf="form.old.hasError('maxLength')" class="text-red-600">
+              Max Length is 100 Characters
+            </div>
+    </div>
+  </form>

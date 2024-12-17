@@ -35,6 +35,7 @@ export class ItemFormComponent {
     content: new FormControl(''), 
     image: new FormControl(),
     image_src: new FormControl(''), 
+    signup: new FormControl(''), 
     posted: new FormControl()
   });
 
@@ -45,6 +46,7 @@ export class ItemFormComponent {
       desc: values.desc, 
       content: values.content, 
       image_src: values.image_src, 
+      signup: values.signup
     });
 
     if(this.itemForm.controls['image_src']) {

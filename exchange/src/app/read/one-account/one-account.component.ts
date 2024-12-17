@@ -26,13 +26,20 @@ export class OneAccountComponent {
   ) {}
 
   userID: string = ''
+  public userName: string = ''
   uid = this.route.snapshot.paramMap.get('id')
   public allItems: Array<Item> = []
+  public empty: boolean = false
 
   ngOnInit() {
     const user = auth.currentUser
     if(user) {
       this.userID = user.uid
+      if(user.displayName) {
+        this.userName = user.displayName
+      } else {
+        this.userName = "User" + user.uid
+      }
     } else {
       this.userID = "none"
     }
@@ -53,7 +60,9 @@ export class OneAccountComponent {
               console.log(e.message)
             })
         });
-        
+        if(this.allItems.length == 0) {
+          this.empty = true
+        }
       })}
 
       async like(id: string) {
